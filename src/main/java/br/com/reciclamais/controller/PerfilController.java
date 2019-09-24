@@ -16,57 +16,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.reciclamais.model.Usuario;
-import br.com.reciclamais.service.UsuarioService;
+import br.com.reciclamais.model.Perfil;
+import br.com.reciclamais.service.PerfilService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UsuarioController {
+public class PerfilController {
 
 	@Autowired
-	private UsuarioService service;
+	private PerfilService service;
 	
-	@RequestMapping(
-			  value = "/user", 
+	@RequestMapping(value = "/perfil", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
-		boolean flag = service.adicionaUsuario(usuario);
+	public ResponseEntity<Integer> getUsersById(@RequestBody Perfil perfil, UriComponentsBuilder builder) {
+		boolean flag = service.adicionaPerfil(perfil);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
 		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/user/{id}").buildAndExpand(usuario.getCodigo()).toUri());
+		//headers.setLocation(builder.path("/perfil/{id}").buildAndExpand(perfil.getCodigo()).toUri());
 
-		return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(perfil.getCodigo(), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		if (usuario !=null ) {
-			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	@RequestMapping(value = "/perfil/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Perfil> getPerfilById(@PathVariable("id") Integer id) {
+		Perfil perfil = service.getPerfilById(id);
+		if (perfil !=null ) {
+			return new ResponseEntity<Perfil>(perfil, HttpStatus.OK);
 		}
-		return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);
+		return new ResponseEntity<Perfil>(new Perfil(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user", 
+	@RequestMapping(value = "/perfil", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.PUT) 
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
-		service.alteraUsuario(usuario);
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	public ResponseEntity<Perfil> updatePerfil(@RequestBody Perfil perfil) {
+		service.alteraPerfil(perfil);
+		return new ResponseEntity<Perfil>(perfil, HttpStatus.OK);
 	}
 	
 	
 	@RequestMapping(
-			  value = "/user/{id}", 
+			  value = "/perfil/{id}", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.DELETE) 
-	public ResponseEntity<Void> deleteUsuario(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		service.deletaUsuario(usuario);
+	public ResponseEntity<Void> deletePerfil(@PathVariable("id") Integer id) {
+		Perfil perfil = service.getPerfilById(id);
+		service.deletaPerfil(perfil);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

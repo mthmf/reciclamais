@@ -16,57 +16,57 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.reciclamais.model.Usuario;
-import br.com.reciclamais.service.UsuarioService;
+import br.com.reciclamais.model.BaixaRota;
+import br.com.reciclamais.service.BaixaRotaService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UsuarioController {
+public class BaixaRotaController {
 
 	@Autowired
-	private UsuarioService service;
+	private BaixaRotaService service;
 	
 	@RequestMapping(
-			  value = "/user", 
+			  value = "/baixarota", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
-		boolean flag = service.adicionaUsuario(usuario);
+	public ResponseEntity<Integer> getUsersById(@RequestBody BaixaRota baixaRota, UriComponentsBuilder builder) {
+		boolean flag = service.adicionaBaixaRota(baixaRota);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
 		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/user/{id}").buildAndExpand(usuario.getCodigo()).toUri());
+		//headers.setLocation(builder.path("/baixarota/{id}").buildAndExpand(baixaRota.getCodigo()).toUri());
 
-		return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(baixaRota.getCodigo(), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		if (usuario !=null ) {
-			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	@RequestMapping(value = "/baixarota/{id}", method = RequestMethod.GET)
+	public ResponseEntity<BaixaRota> getBaixaRotaById(@PathVariable("id") Integer id) {
+		BaixaRota baixaRota = service.getBaixaRotaById(id);
+		if (baixaRota !=null ) {
+			return new ResponseEntity<BaixaRota>(baixaRota, HttpStatus.OK);
 		}
-		return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);
+		return new ResponseEntity<BaixaRota>(new BaixaRota(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user", 
+	@RequestMapping(value = "/baixarota", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.PUT) 
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
-		service.alteraUsuario(usuario);
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	public ResponseEntity<BaixaRota> updateBaixaRota(@RequestBody BaixaRota baixaRota) {
+		service.alteraBaixaRota(baixaRota);
+		return new ResponseEntity<BaixaRota>(baixaRota, HttpStatus.OK);
 	}
 	
 	
 	@RequestMapping(
-			  value = "/user/{id}", 
+			  value = "/baixarota/{id}", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.DELETE) 
-	public ResponseEntity<Void> deleteUsuario(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		service.deletaUsuario(usuario);
+	public ResponseEntity<Void> deleteBaixaRota(@PathVariable("id") Integer id) {
+		BaixaRota baixaRota = service.getBaixaRotaById(id);
+		service.deletaBaixaRota(baixaRota);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

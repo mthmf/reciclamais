@@ -1,7 +1,9 @@
 package br.com.reciclamais.model;
 
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import br.com.reciclamais.util.LocalDateTimeDeserializer;
+import br.com.reciclamais.util.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,11 +43,13 @@ public class Produto {
 	private String nome;
 	
 	@Column(name="nome_fabricante")
-	private String fabricante;
+	private String nomeFabricante;
 	
 	@Column(name="peso")
 	private BigDecimal peso;
 	
-	@Column(name="data_validade")
-	private LocalDate dataValidade;
+	@Column(name="data_validade", columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	private LocalDateTime dataValidade;
 }

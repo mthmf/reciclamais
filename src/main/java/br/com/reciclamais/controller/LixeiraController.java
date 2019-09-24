@@ -16,57 +16,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.reciclamais.model.Usuario;
-import br.com.reciclamais.service.UsuarioService;
+import br.com.reciclamais.model.Lixeira;
+import br.com.reciclamais.service.LixeiraService;
 
 @RestController
 @RequestMapping("/api/v1")
-public class UsuarioController {
+public class LixeiraController {
 
 	@Autowired
-	private UsuarioService service;
+	private LixeiraService service;
 	
 	@RequestMapping(
-			  value = "/user", 
+			value = "/lixeira", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
-		boolean flag = service.adicionaUsuario(usuario);
+	public ResponseEntity<Integer> getUsersById(@RequestBody Lixeira lixeira, UriComponentsBuilder builder) {
+		boolean flag = service.adicionaLixeira(lixeira);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
 		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/user/{id}").buildAndExpand(usuario.getCodigo()).toUri());
+		//headers.setLocation(builder.path("/lixeira/{id}").buildAndExpand(lixeira.getCodigo()).toUri());
 
-		return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(lixeira.getCodigo(), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		if (usuario !=null ) {
-			return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	@RequestMapping(value = "/lixeira/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Lixeira> getLixeiraById(@PathVariable("id") Integer id) {
+		Lixeira lixeira = service.getLixeiraById(id);
+		if (lixeira !=null ) {
+			return new ResponseEntity<Lixeira>(lixeira, HttpStatus.OK);
 		}
-		return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);
+		return new ResponseEntity<Lixeira>(new Lixeira(), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user", 
+	@RequestMapping(value = "/lixeira", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.PUT) 
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario usuario) {
-		service.alteraUsuario(usuario);
-		return new ResponseEntity<Usuario>(usuario, HttpStatus.OK);
+	public ResponseEntity<Lixeira> updateLixeira(@RequestBody Lixeira lixeira) {
+		service.alteraLixeira(lixeira);
+		return new ResponseEntity<Lixeira>(lixeira, HttpStatus.OK);
 	}
 	
 	
-	@RequestMapping(
-			  value = "/user/{id}", 
+	@RequestMapping(value = "/lixeira/{id}", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.DELETE) 
-	public ResponseEntity<Void> deleteUsuario(@PathVariable("id") Integer id) {
-		Usuario usuario = service.getUsuarioById(id);
-		service.deletaUsuario(usuario);
+	public ResponseEntity<Void> deleteLixeira(@PathVariable("id") Integer id) {
+		Lixeira lixeira = service.getLixeiraById(id);
+		service.deletaLixeira(lixeira);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

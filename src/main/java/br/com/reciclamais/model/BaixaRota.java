@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import br.com.reciclamais.util.LocalDateTimeDeserializer;
+import br.com.reciclamais.util.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,16 +30,22 @@ public class BaixaRota {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_baixa_rota")	
 	private Integer codigo;
 	
-	@Column(name="codigoRota")
+	@Column(name="codigo_rota")
 	private Integer codigoRota;
 	
 	@Column(name="dataBaixa")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dataBaixa;
 	
-	@Column(name="dataSaida")
+	@Column(name="data_saida")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dataSaida;
 	
 	@Column(name="dataChegada")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime dataChegada;
 	
 	@Column(name="observacao")

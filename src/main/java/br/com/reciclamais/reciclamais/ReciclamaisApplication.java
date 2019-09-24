@@ -1,7 +1,5 @@
 package br.com.reciclamais.reciclamais;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,12 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import br.com.reciclamais.model.Usuario;
 import br.com.reciclamais.repository.UsuarioRepository;
-import br.com.reciclamais.repository.UsuarioRepository;
 
 @SpringBootApplication()
 
 @EntityScan("br.com.reciclamais.model")
 @EnableConfigurationProperties()
+@ComponentScan("br.com.reciclamais")
 @EnableJpaRepositories(basePackages="br.com.reciclamais.repository")
 public class ReciclamaisApplication {
 	

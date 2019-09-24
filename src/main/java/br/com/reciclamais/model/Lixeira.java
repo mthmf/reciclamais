@@ -29,7 +29,7 @@ public class Lixeira {
 	private String nomeFicticio;
 	
 	@Column(name="endereco")
-	private String endereço;
+	private String endereco;
 	
 	@Column(name="ponto_ref")
 	private String pontoReferencia;
