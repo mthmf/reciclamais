@@ -46,6 +46,6 @@ public class Lixeira {
 	@Column(name="longitude")
 	private Double longitude;
 	
-	@Column(name="rota")
+	@Column(name="codigo_rota")
 	private Integer rota;
 }
