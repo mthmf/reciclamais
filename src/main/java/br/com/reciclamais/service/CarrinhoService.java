@@ -1,5 +1,6 @@
 package br.com.reciclamais.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.reciclamais.model.Carrinho;
+import br.com.reciclamais.model.Produto;
+import br.com.reciclamais.model.ProdutoCarrinho;
 import br.com.reciclamais.repository.CarrinhoRepository;
 
 @Component
@@ -15,11 +18,29 @@ public class CarrinhoService implements ICarrinhoService {
 	@Autowired
 	private CarrinhoRepository repository;
 
+	@Autowired 
+	private ProdutoCarrinhoService produtoCarrinhoService;
+	
+	@Autowired
+	private ProdutoService produtoService;
+	
 	@Override
 	public List<Carrinho> getAllLixeira() {
 		return (List<Carrinho>) repository.findAll();
 
 	}
+	
+	public List<Produto> getProdutosDoCarrinho(Carrinho carrinho){
+		List<ProdutoCarrinho> produtosCarrinho =  produtoCarrinhoService.findByCodigoCarrinho(carrinho.getCodigo());
+		List<Produto> produtos = new ArrayList<Produto>();
+		for (ProdutoCarrinho produto : produtosCarrinho ) {
+			produtos.add(produtoService.getProdutoById(produto.getCodigoProduto()));
+		}
+		return produtos;
+	}
+	
+	
+	
 
 	@Override
 	public Carrinho getCarrinhoById(Integer codigo) {
@@ -44,6 +65,11 @@ public class CarrinhoService implements ICarrinhoService {
 	@Override
 	public void deletaCarrinho(Carrinho carrinho) {
 		repository.delete(carrinho);		
+	}
+
+	@Override
+	public Carrinho getCarrinhoUsuario(Integer usuario) {
+		return repository.findByUsuarioAndAtivo(usuario, Boolean.TRUE);
 	}
 	
 	

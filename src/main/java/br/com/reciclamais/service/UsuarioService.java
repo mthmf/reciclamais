@@ -31,6 +31,10 @@ public class UsuarioService implements IUsuarioService{
 
 	@Override
 	public boolean adicionaUsuario(Usuario usuario) {
+		// Valida existencia do cpf ou email do usuario a ser cadastrado
+		if(getUsuarioByCpfOrEmail(usuario.getCpf(), usuario.getEmail()) != null) {
+			return false;
+		}
 		return repository.save(usuario) != null;
 	}
 
@@ -42,6 +46,11 @@ public class UsuarioService implements IUsuarioService{
 	@Override
 	public void deletaUsuario(Usuario usuario) {
 		repository.delete(usuario);
+	}
+
+	@Override
+	public Usuario getUsuarioByCpfOrEmail(String cpf, String email) {
+		return repository.findByCpfOrEmail(cpf,email);
 	}
 
 	

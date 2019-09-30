@@ -26,12 +26,21 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 	
-	@RequestMapping(
-			  value = "/user", 
+	@RequestMapping(value = "/user/login", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
+	public ResponseEntity<Usuario> loginUsuario(@RequestBody Usuario usuario) {
+      	return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);
+  
+		//return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/user", 
+			  consumes= MediaType.APPLICATION_JSON_VALUE,
+			  produces= MediaType.APPLICATION_JSON_VALUE,
+			  method = RequestMethod.POST) 
+	public ResponseEntity<Integer> saveUsuario(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
 		boolean flag = service.adicionaUsuario(usuario);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
@@ -60,8 +69,7 @@ public class UsuarioController {
 	}
 	
 	
-	@RequestMapping(
-			  value = "/user/{id}", 
+	@RequestMapping(value = "/user/{id}", 
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.DELETE) 
 	public ResponseEntity<Void> deleteUsuario(@PathVariable("id") Integer id) {

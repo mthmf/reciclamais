@@ -16,4 +16,6 @@ public interface ICarrinhoService {
     
 	void deletaCarrinho(Carrinho carrinho);
 	
+	Carrinho getCarrinhoUsuario(Integer usuario);
+	
 }

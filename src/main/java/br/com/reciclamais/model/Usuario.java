@@ -37,6 +37,5 @@ public class Usuario {
 	
 	@Column(name="tipo")
 	private String tipo;
-	
 
 }

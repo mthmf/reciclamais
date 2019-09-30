@@ -9,6 +9,8 @@ public interface IUsuarioService {
 	List<Usuario> getAllUsuario();
 
 	Usuario getUsuarioById(Integer usuario);
+	
+	Usuario getUsuarioByCpfOrEmail(String cpf, String email);
     
 	boolean adicionaUsuario(Usuario usuario);
     
