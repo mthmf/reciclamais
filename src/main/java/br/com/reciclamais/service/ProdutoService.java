@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.com.reciclamais.dto.ProdutoDTO;
 import br.com.reciclamais.model.Carrinho;
 import br.com.reciclamais.model.Produto;
 import br.com.reciclamais.model.ProdutoCarrinho;
@@ -19,6 +20,9 @@ public class ProdutoService implements IProdutoService {
 
 	@Autowired
 	private ProdutoRepository repository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@Autowired
 	private CarrinhoService carrinhoService;
@@ -42,7 +46,10 @@ public class ProdutoService implements IProdutoService {
 	
 
 	@Override
-	public boolean adicionaProduto(Produto produto, Usuario usuario) {
+	public boolean adicionaProduto(ProdutoDTO dto ){
+		Produto produto = getProdutoById(dto.getCodigoProduto());
+		Usuario usuario = usuarioService.getUsuarioById(dto.getCodigoUsuario());
+		
 		Carrinho carrinho = buscaCarrinhoParaProduto(produto, usuario);
 		BigDecimal novoTotalPeso = carrinho.getTotalPesoReciclavel().add(produto.getPeso());
 		boolean adicionadoNoCarrinho = produtoCarrinhoService.adicionaProduto(new ProdutoCarrinho(carrinho.getCodigo(), produto.getCodigo()));

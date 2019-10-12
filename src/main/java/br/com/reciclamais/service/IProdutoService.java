@@ -2,8 +2,8 @@ package br.com.reciclamais.service;
 
 import java.util.List;
 
+import br.com.reciclamais.dto.ProdutoDTO;
 import br.com.reciclamais.model.Produto;
-import br.com.reciclamais.model.Usuario;
 
 public interface IProdutoService {
 
@@ -13,7 +13,7 @@ public interface IProdutoService {
     
 	Produto getProdutoByIdentificador(String identificador);
 	
-	boolean adicionaProduto(Produto produto, Usuario usuario);
+	boolean adicionaProduto(ProdutoDTO produto);
     
 	void alteraProduto(Produto produto);
     
