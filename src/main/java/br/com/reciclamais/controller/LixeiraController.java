@@ -1,5 +1,7 @@
 package br.com.reciclamais.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,11 +28,19 @@ public class LixeiraController {
 	@Autowired
 	private LixeiraService service;
 	
+	@RequestMapping(value = "/lixeira/all", consumes= MediaType.APPLICATION_JSON_VALUE,
+			  produces= MediaType.APPLICATION_JSON_VALUE,
+			  method = RequestMethod.POST) 
+	public ResponseEntity<List<Lixeira>> getAllLixeiras() {
+		List<Lixeira> lixeiras = service.getAllLixeiras();
+		return new ResponseEntity<List<Lixeira>>(lixeiras, HttpStatus.CREATED);
+	}
+	
 	@RequestMapping(value = "/lixeira", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Lixeira lixeira, UriComponentsBuilder builder) {
+	public ResponseEntity<Integer> saveLixeira(@RequestBody Lixeira lixeira, UriComponentsBuilder builder) {
 		boolean flag = service.adicionaLixeira(lixeira);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);

@@ -6,7 +6,7 @@ import br.com.reciclamais.model.Lixeira;
 
 public interface ILixeiraService {
 
-	List<Lixeira> getAllLixeira();
+	List<Lixeira> getAllLixeiras();
 
 	Lixeira getLixeiraById(Integer codigo);
     

@@ -1,5 +1,7 @@
 package br.com.reciclamais.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import br.com.reciclamais.model.Carrinho;
 import br.com.reciclamais.model.Produto;
 import br.com.reciclamais.model.ProdutoCarrinho;
+import br.com.reciclamais.model.Usuario;
 import br.com.reciclamais.repository.CarrinhoRepository;
 
 @Component
@@ -30,6 +33,18 @@ public class CarrinhoService implements ICarrinhoService {
 
 	}
 	
+	public Carrinho criaNovoCarrinho(Usuario usuario) {
+		// Salva um novo carrinho
+		Carrinho carrinho = new Carrinho();
+		carrinho.setTotalPesoReciclavel(BigDecimal.ZERO);
+		carrinho.setUsuario(usuario.getCodigo());
+		carrinho.setDataCriacao(LocalDateTime.now());
+		carrinho.setAtivo(Boolean.TRUE);
+		adicionaCarrinho(carrinho);
+
+		return getCarrinhoUsuario(usuario.getCodigo());
+	}
+	
 	public List<Produto> getProdutosDoCarrinho(Carrinho carrinho){
 		List<ProdutoCarrinho> produtosCarrinho =  produtoCarrinhoService.findByCodigoCarrinho(carrinho.getCodigo());
 		List<Produto> produtos = new ArrayList<Produto>();
@@ -38,9 +53,6 @@ public class CarrinhoService implements ICarrinhoService {
 		}
 		return produtos;
 	}
-	
-	
-	
 
 	@Override
 	public Carrinho getCarrinhoById(Integer codigo) {

@@ -16,7 +16,7 @@ public class LixeiraService implements ILixeiraService {
 	private LixeiraRepository repository;
 	
 	@Override
-	public List<Lixeira> getAllLixeira() {
+	public List<Lixeira> getAllLixeiras() {
 		return (List<Lixeira>) repository.findAll();
 	}
 

@@ -41,10 +41,10 @@ public class Lixeira {
 	private BigDecimal capacidadeAtual;
 	
 	@Column(name="latitude")
-	private Double latitude;
+	private String latitude;
 	
 	@Column(name="longitude")
-	private Double longitude;
+	private String longitude;
 	
 	@Column(name="codigo_rota")
 	private Integer rota;

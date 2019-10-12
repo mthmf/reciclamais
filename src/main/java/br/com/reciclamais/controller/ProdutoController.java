@@ -24,20 +24,26 @@ public class ProdutoController {
 	
 	@RequestMapping(value = "/produto", consumes= MediaType.APPLICATION_JSON_VALUE, 
 			produces= MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Produto produto, @RequestBody Usuario usuario) {
+	public ResponseEntity<Integer> saveProdutoCarrinho(@RequestBody Produto produto, @RequestBody Usuario usuario) {
 		boolean flag = service.adicionaProduto(produto, usuario);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
-		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/produto/{id}").buildAndExpand(Produto.getCodigo()).toUri());
-
 		return new ResponseEntity<Integer>(produto.getCodigo(), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Produto> getProdutoById(@PathVariable("id") Integer id) {
 		Produto produto = service.getProdutoById(id);
+		if (produto !=null ) {
+			return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+		}
+		return new ResponseEntity<Produto>(new Produto(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/produto/ident/{identificador}", method = RequestMethod.GET)
+	public ResponseEntity<Produto> getProdutoByIdentificador(@PathVariable("identificador") String identificador) {
+		Produto produto = service.getProdutoByIdentificador(identificador);
 		if (produto !=null ) {
 			return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 		}

@@ -7,6 +7,8 @@ import br.com.reciclamais.model.Usuario;
 public interface IUsuarioService {
 
 	List<Usuario> getAllUsuario();
+	
+	Usuario getUsuarioByLogin(String email, String senha);
 
 	Usuario getUsuarioById(Integer usuario);
 	

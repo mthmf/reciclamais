@@ -31,9 +31,11 @@ public class UsuarioController {
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
 	public ResponseEntity<Usuario> loginUsuario(@RequestBody Usuario usuario) {
-      	return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);
-  
-		//return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
+		Usuario login = service.getUsuarioByLogin(usuario.getEmail(), usuario.getSenha());
+		if(login == null) {
+			return new ResponseEntity<Usuario>(new Usuario(), HttpStatus.OK);			
+		}
+		return new ResponseEntity<Usuario>(login, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/user", 

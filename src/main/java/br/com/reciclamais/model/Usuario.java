@@ -35,7 +35,7 @@ public class Usuario {
 	@Column(name="senha")
 	private String senha;
 	
-	@Column(name="tipo")
-	private String tipo;
+	@Column(name="codigo_perfil")
+	private Integer perfil;
 
 }

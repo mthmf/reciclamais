@@ -11,6 +11,8 @@ public interface IProdutoService {
 
 	Produto getProdutoById(Integer produto);
     
+	Produto getProdutoByIdentificador(String identificador);
+	
 	boolean adicionaProduto(Produto produto, Usuario usuario);
     
 	void alteraProduto(Produto produto);

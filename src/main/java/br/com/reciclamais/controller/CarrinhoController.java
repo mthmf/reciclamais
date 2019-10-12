@@ -32,10 +32,12 @@ public class CarrinhoController {
 			  method = RequestMethod.POST) 
 	public ResponseEntity<Carrinho> getCarrinhoAtual(@RequestBody Usuario usuario) {
 		Carrinho carrinho = service.getCarrinhoUsuario(usuario.getCodigo());
+		if(carrinho == null) {
+			carrinho = service.criaNovoCarrinho(usuario);
+		}
 		return new ResponseEntity<Carrinho>(carrinho, HttpStatus.CREATED);
 	}
 
-	
 	@RequestMapping(value = "/carrinho/produtos", 
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,

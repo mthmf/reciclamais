@@ -53,6 +53,11 @@ public class UsuarioService implements IUsuarioService{
 		return repository.findByCpfOrEmail(cpf,email);
 	}
 
+	@Override
+	public Usuario getUsuarioByLogin(String email, String senha) {
+		return repository.findByEmailAndSenha(email, senha);
+	}
+
 	
 	
 }

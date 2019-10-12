@@ -26,7 +26,7 @@ public class RotaController {
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody Rota rota, UriComponentsBuilder builder) {
+	public ResponseEntity<Integer> saveRota(@RequestBody Rota rota, UriComponentsBuilder builder) {
 		boolean flag = service.adicionaRota(rota);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);

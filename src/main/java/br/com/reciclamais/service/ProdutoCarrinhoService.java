@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import br.com.reciclamais.model.Produto;
 import br.com.reciclamais.model.ProdutoCarrinho;
 import br.com.reciclamais.repository.ProdutoCarrinhoRepository;
 
+@Component
 public class ProdutoCarrinhoService implements IProdutoCarrinhoService {
 
 	@Autowired

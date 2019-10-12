@@ -27,7 +27,7 @@ public class BaixaCarrinhoController {
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody BaixaCarrinho baixaCarrinho, UriComponentsBuilder builder) {
+	public ResponseEntity<Integer> saveBaixaCarrinho(@RequestBody BaixaCarrinho baixaCarrinho, UriComponentsBuilder builder) {
 		boolean flag = service.adicionaBaixaCarrinho(baixaCarrinho);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);

@@ -9,6 +9,8 @@ import br.com.reciclamais.model.Usuario;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
+	Usuario findByEmailAndSenha(String email, String senha);
+	
 	List<Usuario> findByNome(String nome);
 	
 	List<Usuario> findByEmail(String email);

@@ -1,7 +1,6 @@
 package br.com.reciclamais.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import br.com.reciclamais.util.LocalDateTimeDeserializer;
-import br.com.reciclamais.util.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +25,9 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")	
 	private Integer codigo;
 	
+	@Column(name="identificador")
+	private String identificador;
+	
 	@Column(name="nome")
 	private String nome;
 	
@@ -40,8 +37,4 @@ public class Produto {
 	@Column(name="peso")
 	private BigDecimal peso;
 	
-	@Column(name="data_validade", columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime dataValidade;
 }

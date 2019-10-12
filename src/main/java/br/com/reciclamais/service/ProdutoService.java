@@ -39,24 +39,20 @@ public class ProdutoService implements IProdutoService {
 		}
 		return null;
 	}
+	
 
 	@Override
 	public boolean adicionaProduto(Produto produto, Usuario usuario) {
-		// Verifica se já não existe o produto na base
-		// TODO
-		
-		Produto produtoAdicionado = repository.save(produto);
-		if(produtoAdicionado != null) {
-			Carrinho carrinho = buscaCarrinhoParaProduto(produto, usuario);
-			BigDecimal novoTotalPeso = carrinho.getTotalPesoReciclavel().add(produto.getPeso());
-			boolean adicionadoNoCarrinho = produtoCarrinhoService.adicionaProduto(new ProdutoCarrinho(carrinho.getCodigo(), produtoAdicionado.getCodigo()));
+		Carrinho carrinho = buscaCarrinhoParaProduto(produto, usuario);
+		BigDecimal novoTotalPeso = carrinho.getTotalPesoReciclavel().add(produto.getPeso());
+		boolean adicionadoNoCarrinho = produtoCarrinhoService.adicionaProduto(new ProdutoCarrinho(carrinho.getCodigo(), produto.getCodigo()));
 			
-			if(adicionadoNoCarrinho) {
-				carrinho.setTotalPesoReciclavel(novoTotalPeso);
-				carrinhoService.alteraCarrinho(carrinho);
-				return true;
-			}
+		if(adicionadoNoCarrinho) {
+			carrinho.setTotalPesoReciclavel(novoTotalPeso);
+			carrinhoService.alteraCarrinho(carrinho);
+			return true;
 		}
+		
 		return false;
 	}
 
@@ -87,6 +83,11 @@ public class ProdutoService implements IProdutoService {
 	@Override
 	public void deletaProduto(Produto produto) {
 		repository.delete(produto);
+	}
+
+	@Override
+	public Produto getProdutoByIdentificador(String identificador) {
+		return repository.findByIdentificador(identificador);
 	}
 	
 }
