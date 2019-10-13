@@ -45,9 +45,6 @@ public class LixeiraController {
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
-		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/lixeira/{id}").buildAndExpand(lixeira.getCodigo()).toUri());
-
 		return new ResponseEntity<Integer>(lixeira.getCodigo(), HttpStatus.CREATED);
 	}
 
@@ -77,5 +74,14 @@ public class LixeiraController {
 		service.deletaLixeira(lixeira);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/lixeira/rota/{id}", 
+			  produces= MediaType.APPLICATION_JSON_VALUE,
+			  method = RequestMethod.GET) 
+	public ResponseEntity<List<Lixeira>> getLixeirasDaRota(@PathVariable("idRota") Integer idRota) {
+		List<Lixeira> lixeiras = service.getLixeirasDaRota(idRota);
+		return new ResponseEntity<List<Lixeira>>(lixeiras, HttpStatus.OK);
+	}
+	
 
 }
