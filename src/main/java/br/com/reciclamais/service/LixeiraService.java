@@ -48,8 +48,8 @@ public class LixeiraService implements ILixeiraService {
 	}
 
 	@Override
-	public List<Lixeira> getLixeirasDaRota(Integer idRota) {
-		return getLixeirasDaRota(idRota);
+	public List<Lixeira> getLixeirasDaRota(Integer codigoRota) {
+		return getLixeirasDaRota(codigoRota);
 	}
 
 }

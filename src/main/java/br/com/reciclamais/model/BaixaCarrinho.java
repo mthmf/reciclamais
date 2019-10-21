@@ -37,12 +37,6 @@ public class BaixaCarrinho {
 	@Column(name="codigo_carrinho")
 	private Integer codigoCarrinho;
 	
-	@Column(name="data_agendamento")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime dataAgendamento;
-	
 	@Column(name="data_baixa")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	@JsonSerialize(using = LocalDateTimeSerializer.class)

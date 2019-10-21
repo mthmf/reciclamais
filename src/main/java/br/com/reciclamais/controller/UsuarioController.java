@@ -42,14 +42,11 @@ public class UsuarioController {
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> saveUsuario(@RequestBody Usuario usuario, UriComponentsBuilder builder) {
+	public ResponseEntity<Integer> saveUsuario(@RequestBody Usuario usuario) {
 		boolean flag = service.adicionaUsuario(usuario);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
-		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/user/{id}").buildAndExpand(usuario.getCodigo()).toUri());
-
 		return new ResponseEntity<Integer>(usuario.getCodigo(), HttpStatus.CREATED);
 	}
 

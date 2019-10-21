@@ -9,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -47,5 +45,5 @@ public class Lixeira {
 	private String longitude;
 	
 	@Column(name="codigo_rota")
-	private Integer rota;
+	private Integer codigoRota;
 }

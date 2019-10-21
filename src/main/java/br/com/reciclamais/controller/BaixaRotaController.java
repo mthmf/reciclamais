@@ -31,13 +31,11 @@ public class BaixaRotaController {
 			  consumes= MediaType.APPLICATION_JSON_VALUE,
 			  produces= MediaType.APPLICATION_JSON_VALUE,
 			  method = RequestMethod.POST) 
-	public ResponseEntity<Integer> getUsersById(@RequestBody BaixaRota baixaRota, UriComponentsBuilder builder) {
+	public ResponseEntity<Integer> getUsersById(@RequestBody BaixaRota baixaRota) {
 		boolean flag = service.adicionaBaixaRota(baixaRota);
         if (flag == false) {
         	return new ResponseEntity<Integer>(0 , HttpStatus.CONFLICT);
         }
-		HttpHeaders headers = new HttpHeaders();
-		//headers.setLocation(builder.path("/baixarota/{id}").buildAndExpand(baixaRota.getCodigo()).toUri());
 
 		return new ResponseEntity<Integer>(baixaRota.getCodigo(), HttpStatus.CREATED);
 	}

@@ -1,5 +1,7 @@
 package br.com.reciclamais.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.reciclamais.model.Lixeira;
 import br.com.reciclamais.model.Rota;
 import br.com.reciclamais.service.RotaService;
 
@@ -63,6 +66,14 @@ public class RotaController {
 		Rota rota = service.getRotaById(id);
 		service.deletaRota(rota);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/rota/all", consumes= MediaType.APPLICATION_JSON_VALUE,
+			  produces= MediaType.APPLICATION_JSON_VALUE,
+			  method = RequestMethod.POST) 
+	public ResponseEntity<List<Rota>> getAllLixeiras() {
+		List<Rota> rotas = service.getAllRota();
+		return new ResponseEntity<List<Rota>>(rotas, HttpStatus.CREATED);
 	}
 
 }
